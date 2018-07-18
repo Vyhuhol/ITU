@@ -1,0 +1,48 @@
+﻿@using DocflowApp.Extensions
+@using DocflowApp.Models.Filters
+@model IEnumerable<DocflowApp.Models.User>
+
+@{
+    ViewBag.Title = "Пользователи";
+}
+
+<h2>Пользователи</h2>
+<div>
+    @Html.Partial("Filter", new UserFilter())
+</div>
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table">
+    <tr>       
+        <th>
+            @Html.SortLink("Логин", "UserName", "Index", "User", null)
+        </th>
+        <th>
+            @Html.SortLink("ФИО", "FIO", "Index", "User", null)
+        </th>
+        <th>
+            @Html.SortLink("Дата приема", "WorkStartDate", "Index", "User", null)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>         
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkStartDate)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id = item.Id, ReturnUrl = Request.RawUrl })
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id, ReturnUrl = Request.RawUrl })
+        </td>
+    </tr>
+}
+
+</table>
